@@ -6,7 +6,7 @@ from blog.models import Post
 
 
 def post_list(request):
-    posts = Post.objects.all()
+    posts = Post.objects.select_related("category")
     return render(request, "blog/post_list.html", {"posts": posts})
 
 
