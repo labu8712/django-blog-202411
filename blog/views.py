@@ -1,14 +1,18 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 
+from blog.filters import PostFilter
 from blog.forms import CommentForm, PostForm
 from blog.models import Post
 from core.forms import DeleteConfirmForm
 
 
 def post_list(request):
-    posts = Post.objects.select_related("category").prefetch_related("tags")
-    return render(request, "blog/post_list.html", {"posts": posts})
+    post_filter = PostFilter(
+        request.GET or None,
+        queryset=Post.objects.select_related("category").prefetch_related("tags"),
+    )
+    return render(request, "blog/post_list.html", {"post_filter": post_filter})
 
 
 def post_create(request):
