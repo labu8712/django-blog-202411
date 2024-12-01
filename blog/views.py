@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 
 from blog.forms import PostForm
-from blog.models import Post
+from blog.models import Category, Post
 from core.forms import DeleteConfirmForm
 
 
@@ -14,7 +14,11 @@ def post_list(request):
 def post_create(request):
     form = PostForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        post = form.save(commit=False)
+        post.category = Category.objects.first()
+        post.save()
+        form.save_m2m()
+
         messages.success(request, "Post create success.")
         return redirect("blog:post-list")
 

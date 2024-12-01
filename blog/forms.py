@@ -4,12 +4,14 @@ from blog.models import Post
 
 
 class PostForm(forms.ModelForm):
+    check = forms.BooleanField(required=True, label="你同意嗎？")
+
     class Meta:
         model = Post
         fields = (
             "title",
             "content",
-            "category",
+            # "category",
             "tags",
         )
         widgets = {
