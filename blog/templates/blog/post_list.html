@@ -25,6 +25,9 @@
                     Category
                 </th>
                 <th scope="col">
+                    Tags
+                </th>
+                <th scope="col">
                     Actions
                 </th>
             </tr>
@@ -43,6 +46,9 @@
                     </td>
                     <td>
                         {{ post.category.name }}
+                    </td>
+                    <td>
+                        {{ post.tags.all|join:", " }}
                     </td>
                     <td>
                         <a href="{% url "blog:post-detail" pk=post.pk %}"

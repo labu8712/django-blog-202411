@@ -7,7 +7,7 @@ from core.forms import DeleteConfirmForm
 
 
 def post_list(request):
-    posts = Post.objects.select_related("category")
+    posts = Post.objects.select_related("category").prefetch_related("tags")
     return render(request, "blog/post_list.html", {"posts": posts})
 
 
