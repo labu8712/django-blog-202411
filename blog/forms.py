@@ -10,4 +10,8 @@ class PostForm(forms.ModelForm):
             "title",
             "content",
             "category",
+            "tags",
         )
+        widgets = {
+            "tags": forms.CheckboxSelectMultiple,
+        }
