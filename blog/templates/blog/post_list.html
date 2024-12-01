@@ -24,6 +24,9 @@
                 <th scope="col">
                     Category
                 </th>
+                <th scope="col">
+                    Actions
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -40,6 +43,9 @@
                     </td>
                     <td>
                         {{ post.category.name }}
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-info btn-sm" role="button">view</a>
                     </td>
                 </tr>
             {% empty %}
