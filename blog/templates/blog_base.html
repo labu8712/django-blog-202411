@@ -5,13 +5,17 @@
 {% endblock subtitle %}
 
 {% block body %}
-    <h1>
-        Blog -
-        {% block page_header %}
-        {% endblock page_header %}
-    </h1>
-    <hr>
+    <div class="row">
+        <div class="{% block page_size %}col-12{% endblock page_size %}">
+            <h1>
+                Blog -
+                {% block page_header %}
+                {% endblock page_header %}
+            </h1>
+            <hr>
 
-    {% block content %}
-    {% endblock content %}
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
 {% endblock body %}
