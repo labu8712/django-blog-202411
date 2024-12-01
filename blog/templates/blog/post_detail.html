@@ -5,7 +5,8 @@
 {% endblock page_header %}
 
 {% block content %}
-    <p>
-        Hello
-    </p>
+    <a class="btn btn-primary mb-4"
+       href="{% url "blog:post-update" pk=post.pk %}"
+       role="button">Update</a>
+    {{ post.content|linebreaks }}
 {% endblock content %}
