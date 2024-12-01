@@ -45,7 +45,9 @@
                         {{ post.category.name }}
                     </td>
                     <td>
-                        <a href="#" class="btn btn-info btn-sm" role="button">view</a>
+                        <a href="{% url "blog:post-detail" pk=post.pk %}"
+                           class="btn btn-info btn-sm"
+                           role="button">view</a>
                     </td>
                 </tr>
             {% empty %}
