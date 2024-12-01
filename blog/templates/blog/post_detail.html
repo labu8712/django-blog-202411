@@ -14,4 +14,10 @@
        role="button">Delete</a>
 
     {{ post.content|linebreaks }}
+    <hr>
+
+    {{ post.tags.all|join:", " }}
+    <hr>
+
+    {{ post.category.name }}
 {% endblock content %}
