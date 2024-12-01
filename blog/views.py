@@ -14,11 +14,7 @@ def post_list(request):
 def post_create(request):
     form = PostForm(request.POST or None)
     if form.is_valid():
-        post = form.save(commit=False)
-        post.category = Category.objects.first()
-        post.save()
-        form.save_m2m()
-
+        form.save()
         messages.success(request, "Post create success.")
         return redirect("blog:post-list")
 
