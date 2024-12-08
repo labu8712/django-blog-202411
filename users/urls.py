@@ -4,5 +4,12 @@ from django.urls import path
 app_name = "users"
 
 urlpatterns = [
-    path("login/", django_auth_views.LoginView.as_view(), name="login"),
+    path(
+        "login/",
+        django_auth_views.LoginView.as_view(
+            template_name="users/login.html",
+            redirect_authenticated_user=True,
+        ),
+        name="login",
+    ),
 ]
