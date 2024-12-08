@@ -1,11 +1,17 @@
+import datetime
+
 from django.http import HttpResponse
+from django.utils import timezone
 
 
 def set_cookie(request):
     data = request.GET.get("data", "empty")
 
+    now = timezone.now()  # UTC
+    expires = now + datetime.timedelta(minutes=1)
+
     response = HttpResponse("OKOK")
-    response.set_cookie("data", data)
+    response.set_cookie("data", data, expires=expires)
     return response
 
 
