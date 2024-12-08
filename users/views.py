@@ -23,3 +23,20 @@ def delete_cookie(request):
     response = HttpResponse("Done")
     response.delete_cookie("data")
     return response
+
+
+def set_session(request):
+    data = request.GET.get("data", "empty")
+    request.session["data"] = data
+    return HttpResponse("okok")
+
+
+def show_session(request):
+    return HttpResponse(request.session.get("data"))
+
+
+def delete_session(request):
+    if "data" in request.session:
+        del request.session["data"]
+
+    return HttpResponse("Done")
