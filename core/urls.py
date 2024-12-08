@@ -18,7 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from users import views as user_views
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("blog/", include("blog.urls")),
+    path("set-cookie/", user_views.set_cookie, name="set_cookie"),
+    path("show-cookie/", user_views.show_cookie, name="show_cookie"),
 ]
