@@ -1,7 +1,7 @@
 {% extends "user_base.html" %}
 
 {% block page_header %}
-    login
+    register
 {% endblock page_header %}
 
 {% block page_size %}
@@ -9,7 +9,5 @@
 {% endblock page_size %}
 
 {% block content %}
-    {% include "_form.html" with show_form_cancel_button=False %}
-
-    <a class="mt-5" href="{% url "users:register" %}">還沒有帳號嗎？註冊一個吧！</a>
+    {% include "_form.html" with show_form_cancel_button=True %}
 {% endblock content %}
