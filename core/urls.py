@@ -25,4 +25,5 @@ urlpatterns = [
     path("blog/", include("blog.urls")),
     path("set-cookie/", user_views.set_cookie, name="set_cookie"),
     path("show-cookie/", user_views.show_cookie, name="show_cookie"),
+    path("delete-cookie/", user_views.delete_cookie, name="delete_cookie"),
 ]
