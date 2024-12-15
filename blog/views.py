@@ -18,7 +18,7 @@ def post_list(request):
 
 @login_required
 def post_create(request):
-    form = PostForm(request.POST or None)
+    form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
         messages.success(request, "Post create success.")
