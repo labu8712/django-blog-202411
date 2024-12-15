@@ -86,6 +86,7 @@ def category_list(request):
     )
 
 
+@login_required
 def category_create(request):
     form = CategoryForm(request.POST or None)
     if form.is_valid():
@@ -99,3 +100,32 @@ def category_create(request):
 def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
     return render(request, "blog/category_detail.html", {"category": category})
+
+
+@login_required
+def category_update(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    form = CategoryForm(request.POST or None, instance=category)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Category update success.")
+        return redirect("blog:category-detail", pk=pk)
+
+    return render(request, "blog/category_update.html", {"form": form})
+
+
+@login_required
+def category_delete(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+
+    form = DeleteConfirmForm(request.POST or None)
+    if form.is_valid():
+        category.delete()
+        messages.success(request, "刪除成功")
+        return redirect("blog:category-list")
+
+    return render(
+        request,
+        "blog/category_delete.html",
+        {"form": form, "category": category},
+    )

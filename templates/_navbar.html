@@ -14,6 +14,9 @@
             <div class="navbar-nav">
                 <a class="nav-link" href="{% url "blog:post-list" %}">Posts</a>
             </div>
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url "blog:category-list" %}">Categories</a>
+            </div>
             <div class="navbar-nav ms-auto">
                 {% if not user.is_authenticated %}
                     <a class="nav-link" href="{% url "users:login" %}">Login</a>

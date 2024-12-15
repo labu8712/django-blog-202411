@@ -1,0 +1,19 @@
+{% extends "blog_base.html" %}
+
+{% block page_header %}
+    category delete ({{ category.name }})
+{% endblock page_header %}
+
+{% block page_size %}
+    col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4
+{% endblock page_size %}
+
+{% block content %}
+    {% if category.posts.count %}
+        <p>
+            此分類已被文章使用無法刪除！
+        </p>
+    {% else %}
+        {% include "_form.html" with show_form_cancel_button=False %}
+    {% endif %}
+{% endblock content %}
