@@ -13,6 +13,12 @@
        href="{% url "blog:post-delete" pk=post.pk %}"
        role="button">Delete</a>
 
+    {% if post.image %}
+        <p>
+            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        </p>
+    {% endif %}
+
     {{ post.content|linebreaks }}
     <hr>
 
