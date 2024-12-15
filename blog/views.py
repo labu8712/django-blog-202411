@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from blog.filters import PostFilter
-from blog.forms import CommentForm, PostForm
-from blog.models import Post
+from blog.forms import CategoryForm, CommentForm, PostForm
+from blog.models import Category, Post
 from core.forms import DeleteConfirmForm
 
 
@@ -75,3 +75,27 @@ def post_create_comment(request, post_pk):
         messages.success(request, "留言成功")
 
     return redirect("blog:post-detail", pk=post_pk)
+
+
+def category_list(request):
+    categories = Category.objects.all()
+    return render(
+        request,
+        "blog/category_list.html",
+        {"categories": categories},
+    )
+
+
+def category_create(request):
+    form = CategoryForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Category create success.")
+        return redirect("blog:category-list")
+
+    return render(request, "blog/category_create.html", {"form": form})
+
+
+def category_detail(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    return render(request, "blog/category_detail.html", {"category": category})

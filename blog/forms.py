@@ -1,6 +1,6 @@
 from django import forms
 
-from blog.models import Comment, Post
+from blog.models import Category, Comment, Post
 
 
 class PostForm(forms.ModelForm):
@@ -44,3 +44,9 @@ class CommentForm(forms.ModelForm):
             "nick_name",
             "content",
         )
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ("name", "description")

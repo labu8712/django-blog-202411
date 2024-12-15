@@ -15,4 +15,7 @@ urlpatterns = [
         blog_views.post_create_comment,
         name="post-create-comment",
     ),
+    path("categories/", blog_views.category_list, name="category-list"),
+    path("categories/create/", blog_views.category_create, name="category-create"),
+    path("categories/<int:pk>/", blog_views.category_detail, name="category-detail"),
 ]
