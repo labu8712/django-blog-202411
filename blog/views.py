@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, DetailView, ListView
 
 from blog.filters import PostFilter
 from blog.forms import CategoryForm, CommentForm, PostForm, TagForm
@@ -150,3 +150,7 @@ class TagCreateView(CreateView):
     model = Tag
     fields = ("name", "description")
     # form_class = TagForm
+
+
+class TagDetailView(DetailView):
+    model = Tag

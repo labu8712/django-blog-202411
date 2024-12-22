@@ -2,6 +2,7 @@ import os
 import uuid
 
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 
@@ -35,6 +36,9 @@ class Tag(BaseModel):
 
     def __str__(self) -> str:
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("blog:tag-detail", kwargs={"pk": self.pk})
 
 
 class Post(BaseModel):

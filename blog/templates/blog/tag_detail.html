@@ -1,0 +1,15 @@
+{% extends "blog_base.html" %}
+
+{% block page_header %}
+    {{ tag.name }}
+{% endblock page_header %}
+
+{% block content %}
+    {% comment %} <a class="btn btn-primary mb-4" href="{% url "blog:category-update" pk=category.pk %}" role="button">Update</a>
+
+    <a class="btn btn-outline-danger mb-4"
+       href="{% url "blog:category-delete" pk=category.pk %}"
+       role="button">Delete</a> {% endcomment %}
+
+    {{ object.description|linebreaks }}
+{% endblock content %}
