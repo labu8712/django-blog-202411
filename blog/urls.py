@@ -38,4 +38,9 @@ urlpatterns = [
         blog_views.TagUpdateView.as_view(),
         name="tag-update",
     ),
+    path(
+        "tags/<int:pk>/delete/",
+        blog_views.TagDeleteView.as_view(),
+        name="tag-delete",
+    ),
 ]

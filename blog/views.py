@@ -1,7 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from blog.filters import PostFilter
 from blog.forms import CategoryForm, CommentForm, PostForm, TagForm
@@ -149,7 +156,12 @@ class TagListView(ListView):
 class TagCreateView(CreateView):
     model = Tag
     fields = ("name", "description")
+    success_url = reverse_lazy("blog:tag-list")
     # form_class = TagForm
+
+    def form_valid(self, form):
+        messages.success(self.request, "Tag create success.")
+        return super().form_valid(form)
 
 
 class TagDetailView(DetailView):
@@ -159,3 +171,9 @@ class TagDetailView(DetailView):
 class TagUpdateView(UpdateView):
     model = Tag
     fields = ("name", "description")
+
+
+class TagDeleteView(DeleteView):
+    model = Tag
+    form_class = DeleteConfirmForm
+    success_url = reverse_lazy("blog:tag-list")
