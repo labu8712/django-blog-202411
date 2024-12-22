@@ -150,11 +150,22 @@ def category_delete(request, pk):
     )
 
 
+class FormValidMessageMixin:
+    def form_valid(self, form):
+        messages.success(self.request, self.form_valid_message)
+        return super().form_valid(form)
+
+
 class TagListView(ListView):
     model = Tag
 
 
-class TagCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class TagCreateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    FormValidMessageMixin,
+    CreateView,
+):
     model = Tag
     fields = ("name", "description")
     success_url = reverse_lazy("blog:tag-list")
@@ -162,21 +173,21 @@ class TagCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = "blog.add_tag"
     raise_exception = True
 
-    def form_valid(self, form):
-        messages.success(self.request, "Tag create success.")
-        return super().form_valid(form)
+    form_valid_message = "Tag create success"
 
 
 class TagDetailView(DetailView):
     model = Tag
 
 
-class TagUpdateView(UpdateView):
+class TagUpdateView(FormValidMessageMixin, UpdateView):
     model = Tag
     fields = ("name", "description")
+    form_valid_message = "Tag update success"
 
 
-class TagDeleteView(DeleteView):
+class TagDeleteView(FormValidMessageMixin, DeleteView):
     model = Tag
     form_class = DeleteConfirmForm
     success_url = reverse_lazy("blog:tag-list")
+    form_valid_message = "Tag delete success"
