@@ -1,6 +1,8 @@
 from django.urls import path
+from django.views.generic import ListView
 
 from blog import views as blog_views
+from blog.models import Tag
 
 app_name = "blog"
 
@@ -28,4 +30,5 @@ urlpatterns = [
         blog_views.category_delete,
         name="category-delete",
     ),
+    path("tags/", ListView.as_view(model=Tag), name="tag-list"),
 ]
