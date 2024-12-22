@@ -23,15 +23,19 @@ from django.views.generic import RedirectView
 
 from users import views as user_views
 
-urlpatterns = [
-    path("", RedirectView.as_view(pattern_name="blog:post-list"), name="root"),
-    path("admin/", admin.site.urls),
-    path("blog/", include("blog.urls")),
-    path("users/", include("users.urls")),
-    path("set-cookie/", user_views.set_cookie, name="set_cookie"),
-    path("show-cookie/", user_views.show_cookie, name="show_cookie"),
-    path("delete-cookie/", user_views.delete_cookie, name="delete_cookie"),
-    path("set-session/", user_views.set_session, name="set_session"),
-    path("show-session/", user_views.show_session, name="show_session"),
-    path("delete-session/", user_views.delete_session, name="delete_session"),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns = (
+    [
+        path("", RedirectView.as_view(pattern_name="blog:post-list"), name="root"),
+        path("admin/", admin.site.urls),
+        path("blog/", include("blog.urls")),
+        path("users/", include("users.urls")),
+        path("set-cookie/", user_views.set_cookie, name="set_cookie"),
+        path("show-cookie/", user_views.show_cookie, name="show_cookie"),
+        path("delete-cookie/", user_views.delete_cookie, name="delete_cookie"),
+        path("set-session/", user_views.set_session, name="set_session"),
+        path("show-session/", user_views.show_session, name="show_session"),
+        path("delete-session/", user_views.delete_session, name="delete_session"),
+    ]
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+)
