@@ -7,4 +7,18 @@ User = get_user_model()
 
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
-    pass
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "username",
+                    "email",
+                    "usable_password",
+                    "password1",
+                    "password2",
+                ),
+            },
+        ),
+    )
