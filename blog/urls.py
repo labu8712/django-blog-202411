@@ -33,4 +33,9 @@ urlpatterns = [
     path("tags/", blog_views.TagListView.as_view(), name="tag-list"),
     path("tags/create/", blog_views.TagCreateView.as_view(), name="tag-create"),
     path("tags/<int:pk>/", blog_views.TagDetailView.as_view(), name="tag-detail"),
+    path(
+        "tags/<int:pk>/update/",
+        blog_views.TagUpdateView.as_view(),
+        name="tag-update",
+    ),
 ]

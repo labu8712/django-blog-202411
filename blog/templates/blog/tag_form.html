@@ -1,7 +1,22 @@
 {% extends "blog_base.html" %}
 
 {% block page_header %}
-    tag create
+    {% comment %} {% url "blog:tag-create" as tag_create_url %}
+    {% url "blog:tag-update" pk=object.pk as tag_update_url %}
+
+    {% if request.path == tag_create_url %}
+        tag create
+    {% elif request.path == tag_update_url %}
+        tag update
+    {% else %}
+        tag form
+    {% endif %} {% endcomment %}
+
+    {% if not object %}
+        tag create
+    {% else %}
+        tag update
+    {% endif %}
 {% endblock page_header %}
 
 {% block page_size %}
