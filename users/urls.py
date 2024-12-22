@@ -65,5 +65,12 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     path("cbv/", user_views.CBView.as_view(), name="cbv"),
-    path("cbv2/", TemplateView.as_view(template_name="users/cbv.html"), name="cbv2"),
+    path(
+        "cbv2/",
+        TemplateView.as_view(
+            template_name="users/cbv.html",
+            extra_context={"message": "Hello CBV2"},
+        ),
+        name="cbv2",
+    ),
 ]
