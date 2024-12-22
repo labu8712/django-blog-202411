@@ -10,9 +10,12 @@
             {% include "_form.html" with form_method="get" form=post_filter.form %}
         </div>
     </div>
-    <a class="btn btn-primary"
-       href="{% url "blog:post-create" %}"
-       role="button">Post Create</a>
+
+    {% if perms.blog.add_post %}
+        <a class="btn btn-primary"
+           href="{% url "blog:post-create" %}"
+           role="button">Post Create</a>
+    {% endif %}
 
     <table class="table table-striped">
         <thead>

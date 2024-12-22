@@ -5,13 +5,20 @@
 {% endblock page_header %}
 
 {% block content %}
-    <a class="btn btn-primary mb-4"
-       href="{% url "blog:post-update" pk=post.pk %}"
-       role="button">Update</a>
+    {% if perms.blog.change_post %}
+        <a class="btn btn-primary mb-4"
+           href="{% url "blog:post-update" pk=post.pk %}"
+           role="button">Update</a>
+    {% endif %}
 
-    <a class="btn btn-outline-danger mb-4"
-       href="{% url "blog:post-delete" pk=post.pk %}"
-       role="button">Delete</a>
+    {% if perms.blog.delete_post %}
+        <a class="btn btn-outline-danger mb-4"
+           href="{% url "blog:post-delete" pk=post.pk %}"
+           role="button">Delete</a>
+    {% endif %}
+
+    {{ perms.blog.change_post_status }}
+    {{ perms.blog.soft_delete_post }}
 
     {% if post.image %}
         <p>
