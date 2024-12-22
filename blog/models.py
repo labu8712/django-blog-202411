@@ -50,6 +50,12 @@ class Post(models.Model):
     )
     tags = models.ManyToManyField(Tag, related_name="posts")
 
+    class Meta:
+        permissions = [
+            ("publish_post", "Can publish post"),
+            ("change_post_status", "Can change post status"),
+        ]
+
     def __str__(self) -> str:
         return self.title
 
