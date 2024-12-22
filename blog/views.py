@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -153,11 +154,13 @@ class TagListView(ListView):
     model = Tag
 
 
-class TagCreateView(CreateView):
+class TagCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Tag
     fields = ("name", "description")
     success_url = reverse_lazy("blog:tag-list")
     # form_class = TagForm
+    permission_required = "blog.add_tag"
+    raise_exception = True
 
     def form_valid(self, form):
         messages.success(self.request, "Tag create success.")
