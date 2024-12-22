@@ -1,10 +1,14 @@
 import datetime
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.generic import TemplateView
+
+# User = get_user_model()
+# User.objects.all()
 
 
 class CBView(TemplateView):
