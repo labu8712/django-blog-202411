@@ -1,5 +1,5 @@
 from django.urls import path
-from django.views.generic import ListView
+from django.views.generic import CreateView
 
 from blog import views as blog_views
 from blog.models import Tag
@@ -30,5 +30,6 @@ urlpatterns = [
         blog_views.category_delete,
         name="category-delete",
     ),
-    path("tags/", ListView.as_view(model=Tag), name="tag-list"),
+    path("tags/", blog_views.TagListView.as_view(), name="tag-list"),
+    path("tags/create/", blog_views.TagCreateView.as_view(), name="tag-create"),
 ]

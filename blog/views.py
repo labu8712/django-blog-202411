@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import CreateView, ListView
 
 from blog.filters import PostFilter
-from blog.forms import CategoryForm, CommentForm, PostForm
-from blog.models import Category, Post
+from blog.forms import CategoryForm, CommentForm, PostForm, TagForm
+from blog.models import Category, Post, Tag
 from core.forms import DeleteConfirmForm
 
 
@@ -139,3 +140,13 @@ def category_delete(request, pk):
         "blog/category_delete.html",
         {"form": form, "category": category},
     )
+
+
+class TagListView(ListView):
+    model = Tag
+
+
+class TagCreateView(CreateView):
+    model = Tag
+    fields = ("name", "description")
+    # form_class = TagForm
