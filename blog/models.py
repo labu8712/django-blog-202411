@@ -5,13 +5,23 @@ from django.db import models
 from django.utils import timezone
 
 
+class BaseModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(null=True)
+
+    class Meta:
+        abstract = True
+        default_permissions = ("add", "change", "delete", "view", "soft_delete")
+
+
 def post_image_path(instance, filename):
     new_filename = f"{uuid.uuid4()}{os.path.splitext(filename)[1]}"
     now = timezone.now()
     return f"post_image/{now:%Y/%m/%d}/{new_filename}"
 
 
-class Category(models.Model):
+class Category(BaseModel):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
 
@@ -19,7 +29,7 @@ class Category(models.Model):
         return self.name
 
 
-class Tag(models.Model):
+class Tag(BaseModel):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
 
@@ -27,7 +37,7 @@ class Tag(models.Model):
         return self.name
 
 
-class Post(models.Model):
+class Post(BaseModel):
     class Status(models.TextChoices):
         PUBLIC = "public", "Public"
         PRIVATE = "private", "Private"
@@ -40,8 +50,6 @@ class Post(models.Model):
         default=Status.PUBLIC,
     )
     image = models.ImageField(blank=True, null=True, upload_to=post_image_path)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     category = models.ForeignKey(
         Category,
@@ -52,7 +60,7 @@ class Post(models.Model):
 
     class Meta:
         permissions = [
-            ("publish_post", "Can publish post"),
+            # ("publish_post", "Can publish post"),
             ("change_post_status", "Can change post status"),
         ]
 
@@ -60,7 +68,7 @@ class Post(models.Model):
         return self.title
 
 
-class Comment(models.Model):
+class Comment(BaseModel):
     nick_name = models.CharField(max_length=255)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
