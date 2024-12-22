@@ -80,6 +80,8 @@ def post_create_comment(request, post_pk):
     return redirect("blog:post-detail", pk=post_pk)
 
 
+@login_required
+@permission_required("blog.view_category", raise_exception=True)
 def category_list(request):
     categories = Category.objects.all()
     return render(
@@ -90,6 +92,7 @@ def category_list(request):
 
 
 @login_required
+@permission_required("blog.add_category", raise_exception=True)
 def category_create(request):
     form = CategoryForm(request.POST or None)
     if form.is_valid():
@@ -100,12 +103,15 @@ def category_create(request):
     return render(request, "blog/category_create.html", {"form": form})
 
 
+@login_required
+@permission_required("blog.view_category", raise_exception=True)
 def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
     return render(request, "blog/category_detail.html", {"category": category})
 
 
 @login_required
+@permission_required("blog.change_category", raise_exception=True)
 def category_update(request, pk):
     category = get_object_or_404(Category, pk=pk)
     form = CategoryForm(request.POST or None, instance=category)
@@ -118,6 +124,7 @@ def category_update(request, pk):
 
 
 @login_required
+@permission_required("blog.delete_category", raise_exception=True)
 def category_delete(request, pk):
     category = get_object_or_404(Category, pk=pk)
 
