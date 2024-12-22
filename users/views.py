@@ -4,6 +4,16 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
+from django.views.generic import TemplateView
+
+
+class CBView(TemplateView):
+    template_name = "users/cbv.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["message"] = "hello world"
+        return context
 
 
 def set_cookie(request):

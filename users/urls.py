@@ -1,5 +1,6 @@
 from django.contrib.auth import views as django_auth_views
 from django.urls import path, reverse_lazy
+from django.views.generic import TemplateView
 
 from users import views as user_views
 
@@ -63,4 +64,6 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    path("cbv/", user_views.CBView.as_view(), name="cbv"),
+    path("cbv2/", TemplateView.as_view(template_name="users/cbv.html"), name="cbv2"),
 ]
