@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from blog.filters import PostFilter
@@ -17,6 +17,7 @@ def post_list(request):
 
 
 @login_required
+@permission_required("blog.add_post", raise_exception=True)
 def post_create(request):
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -38,6 +39,7 @@ def post_detail(request, pk):
 
 
 @login_required
+@permission_required("blog.change_post", raise_exception=True)
 def post_update(request, pk):
     post = get_object_or_404(Post, pk=pk)
     form = PostForm(request.POST or None, request.FILES or None, instance=post)
@@ -50,6 +52,7 @@ def post_update(request, pk):
 
 
 @login_required
+@permission_required("blog.delete_post", raise_exception=True)
 def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
